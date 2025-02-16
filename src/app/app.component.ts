@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector:'imgPreview',
@@ -7,7 +7,6 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrl:'./img-preview/img-preview.component.css'
 })
 export class imgPreview{}
-
 @Component({
   selector:'imgPreviewLayers',
   templateUrl:'./img-preview-layers/img-preview-layers.component.html',
