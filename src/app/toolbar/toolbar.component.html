@@ -1,8 +1,13 @@
 <div id="windowOptions">
-    <span>File</span>
-    <span>Edit</span>
-    <span>Settings</span>
-    <span>Help</span>
+    <span (click)="toolbarItemClicked(file)" id = 'file'>File
+        <app-file-drop-down #file [style.visibility]="file.visible"></app-file-drop-down>
+    </span>
+    
+    <span (click)="toolbarItemClicked(edit)" id = 'edit'>Edit<app-edit-drop-down #edit [style.visibility]="edit.visible"></app-edit-drop-down>
+    </span>
+    <span (click)="toolbarItemClicked(settings)" id ='settings'>Settings<app-settings-drop-down #settings [style.visibility]="settings.visible"></app-settings-drop-down>
+    </span>
+    <span id='help'>Help</span>
 </div>
 <div id="windowFunctions">
     <span>Minimize</span>
