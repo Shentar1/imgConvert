@@ -11,7 +11,7 @@ toolbar{
     color: #c0c0ff;
     text-align: center;
 }
-selectedFilesSidebar{
+#selectedFilesSidebar{
     width:10vw;
     margin-top: 30px;
     flex-grow: 1;
@@ -20,38 +20,40 @@ selectedFilesSidebar{
     text-align: center;
     overflow: auto;
 }
-selectedFileSettings{
+#selectedFileSettings{
+    display: flex;
+    flex-direction: column;
     margin-top:30px;
-    width: 15vw;
-    height:90vh;
+    width: 25vw;
+}
+selectedFileSettings{
+    flex-grow: 1;
+    flex-shrink: 1;
     background-color: red;
     text-align: center;
 }
-imgPreview{
+#imgPreview{
+    display: flex;
+    flex-direction: column;
     margin-top:30px;
-    width:75vw;
-    height:90vh;
-    background-color: black;
+    width:65vw;
     text-align: center;
 }
 controls{
-    position:absolute;
-    bottom:0;
-    left:10vw;
-    margin-top:30px;
-    width: 15vw;
-    height:100px;
+    height:150px;
     background-color: blue;
     text-align: center;
 }
-imgPreviewLayers{
-    position: absolute;
-    left:25vw;
-    bottom:0;
+imgPreview{
+    background-color: black;
+    display: block;
     flex-grow: 1;
-    flex-shrink: 1;
+    flex-shrink:1;
+    color:white;
+}
+imgPreviewLayers{
+    height:150px;
     width: 75vw;
-    height:100px;
     background-color:white;
     text-align: center;
     vertical-align: middle;
