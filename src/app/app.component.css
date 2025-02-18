@@ -4,15 +4,16 @@ main{
     height: 100vh;
 }
 toolbar{
+    display: flex;
     position: absolute;
     width: 100vw;
     height: 30px;
-    background-color: #336;
+    background-color: #114;
     color: #c0c0ff;
     text-align: center;
 }
 #selectedFilesSidebar{
-    width:10vw;
+    width:20vw;
     margin-top: 30px;
     flex-grow: 1;
     flex-shrink: 1;
@@ -36,7 +37,7 @@ selectedFileSettings{
     display: flex;
     flex-direction: column;
     margin-top:30px;
-    width:65vw;
+    width:55vw;
     text-align: center;
 }
 controls{

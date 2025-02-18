@@ -1,0 +1,12 @@
+span{
+    padding:5px;
+}
+#windowOptions{
+    flex-grow:1;
+    flex-shrink:1;
+    text-align:left;
+}
+div span:hover{
+    background-color: whitesmoke;
+    color:#114
+}
