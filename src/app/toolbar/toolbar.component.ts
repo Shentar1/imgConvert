@@ -10,10 +10,10 @@ import { SettingsDropDownComponent } from './settings-drop-down/settings-drop-do
   styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent {
-  fileDisplay = 'none';
-  editDisplay = 'none';
-  settingsDisplay = 'none';
   toolbarItemClicked(c:any){
     c.visible==='hidden'?c.visible='visible':c.visible='hidden';
+  }
+  toolbarItemLeft(c:any){
+    c.visible==='visible'?c.visible='hidden':0;
   }
 }
