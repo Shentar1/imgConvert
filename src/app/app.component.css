@@ -9,7 +9,7 @@ toolbar{
     width: 100vw;
     height: 30px;
     background-color: #114;
-    color: #c0c0ff;
+    color: #ccf;
     text-align: center;
 }
 #selectedFilesSidebar{
@@ -17,7 +17,8 @@ toolbar{
     margin-top: 30px;
     flex-grow: 1;
     flex-shrink: 1;
-    background-color: green;
+    background-color: #ccf;
+    box-shadow:#111 0px 0px 3px 1px inset; 
     text-align: center;
     overflow: auto;
 }
@@ -28,9 +29,10 @@ toolbar{
     width: 25vw;
 }
 selectedFileSettings{
+    box-shadow:#111 0px 0px 3px 1px inset; 
     flex-grow: 1;
     flex-shrink: 1;
-    background-color: red;
+    background-color: #ccf;
     text-align: center;
 }
 #imgPreview{
@@ -41,21 +43,24 @@ selectedFileSettings{
     text-align: center;
 }
 controls{
+    box-shadow:#111 0px 0px 3px 1px inset; 
     height:150px;
-    background-color: blue;
+    background-color: #ccf;
     text-align: center;
 }
 imgPreview{
-    background-color: black;
+    box-shadow:#111 0px 0px 3px 1px inset; 
+    background-color: #ccf;
     display: block;
     flex-grow: 1;
     flex-shrink:1;
-    color:white;
+    color:black;
 }
 imgPreviewLayers{
+    box-shadow:#111 0px 0px 3px 1px inset; 
     height:150px;
-    width: 75vw;
-    background-color:white;
+    width: 55vw;
+    background-color:#ccf;
     text-align: center;
     vertical-align: middle;
 }

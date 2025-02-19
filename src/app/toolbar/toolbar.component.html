@@ -3,9 +3,11 @@
         <app-file-drop-down #file [style.visibility]="file.visible"></app-file-drop-down>
     </span>
     
-    <span (click)="toolbarItemClicked(edit)" (mouseleave)="toolbarItemLeft(edit)" id = 'edit'>Edit<app-edit-drop-down #edit [style.visibility]="edit.visible"></app-edit-drop-down>
+    <span (click)="toolbarItemClicked(edit)" (mouseleave)="toolbarItemLeft(edit)" id = 'edit'>Edit
+        <app-edit-drop-down #edit [style.visibility]="edit.visible"></app-edit-drop-down>
     </span>
-    <span (click)="toolbarItemClicked(settings)" (mouseleave)="toolbarItemLeft(settings)" id ='settings'>Settings<app-settings-drop-down #settings [style.visibility]="settings.visible"></app-settings-drop-down>
+    <span (click)="toolbarItemClicked(settings)" (mouseleave)="toolbarItemLeft(settings)" id ='settings'>Settings
+        <app-settings-drop-down #settings [style.visibility]="settings.visible"></app-settings-drop-down>
     </span>
     <span id='help'>Help</span>
 </div>

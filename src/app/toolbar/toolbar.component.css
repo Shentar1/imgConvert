@@ -2,6 +2,10 @@ span{
     padding-left: 3px;
     padding-right:3px;
     text-align: center;
+    border-bottom: #111;
+    border-right: #111;
+    border-width: 1px;
+    border-style: solid;
 }
 span *{
     display: block;
@@ -15,7 +19,7 @@ span *{
     text-align:left;
 }
 div span:hover{
-    background-color: whitesmoke;
+    background-color: #ccf;
     color:#114
 }
 div{
