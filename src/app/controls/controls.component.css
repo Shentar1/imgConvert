@@ -1,0 +1,28 @@
+div{
+    display: inline-block;
+    width: 50%;
+    height:75px;
+    text-align: center;
+    line-height: 75px;
+    box-shadow: #111 1px 1px 10px 1px;
+    user-select: none;
+}
+#Reset{
+    font-weight: 900;
+    font-size: 22px;
+}
+#Convert{
+    color:blue;
+    font-weight: 900;
+    font-size: 22px;
+}
+#Cancel{
+    color:red;
+    font-weight: 900;
+    font-size: 22px;
+}
+#Save{
+    color:green;
+    font-weight: 900;
+    font-size: 22px;
+}

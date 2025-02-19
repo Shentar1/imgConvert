@@ -6,6 +6,7 @@ span{
     border-right: #111;
     border-width: 1px;
     border-style: solid;
+    user-select: none;
 }
 span *{
     display: block;
