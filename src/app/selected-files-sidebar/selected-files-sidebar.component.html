@@ -1,1 +1,27 @@
-<p>selected-files-sidebar works!</p>
+@for (file of files; track [$index,file.name,file.path,file.width,file.height, file.preview]) {
+    
+    @if(($index+1)%2===0){<div class="sidebarFileItem evenItem">
+        <img class="preview" width="100px" height="100px"/>
+        <div>
+            <span class="index">{{$index}} </span>
+            <span class="name">{{file.name}}</span>
+            <span class="path">{{file.path}}</span>
+            <br/>
+            <span class="width">Width: {{file.width}}; </span>
+            <span class="height">Height: {{file.height}}</span>
+        </div>
+    </div>
+}@else {
+    <div class="sidebarFileItem oddItem">
+    <img class="preview" width="100px" height="100px"/>
+        <div>
+            <span class="index">{{$index}} </span>
+            <span class="name">{{file.name}}</span>
+            <span class="path">{{file.path}}</span>
+            <br/>
+            <span class="width">Width: {{file.width}}; </span>
+            <span class="height">Height: {{file.height}}</span>
+        </div>
+    </div>
+}
+}

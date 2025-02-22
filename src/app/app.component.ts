@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ToolbarComponent} from './toolbar/toolbar.component'
 import { ControlsComponent } from './controls/controls.component';
+import { SelectedFilesSidebarComponent } from './selected-files-sidebar/selected-files-sidebar.component';
 
 @Component({
   selector:'imgPreview',
@@ -22,14 +23,8 @@ export class imgPreviewLayers{};
 })
 export class selectedFileSettings{};
 @Component({
-  selector:'selectedFilesSidebar',
-  templateUrl:'./selected-files-sidebar/selected-files-sidebar.component.html',
-  styleUrl:'./selected-files-sidebar/selected-files-sidebar.component.css'
-})
-export class selectedFilesSidebar{};
-@Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToolbarComponent,selectedFileSettings,selectedFilesSidebar,imgPreview,imgPreviewLayers,ControlsComponent],
+  imports: [RouterOutlet, ToolbarComponent,selectedFileSettings,SelectedFilesSidebarComponent,imgPreview,imgPreviewLayers,ControlsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
