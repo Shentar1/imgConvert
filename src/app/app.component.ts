@@ -29,5 +29,5 @@ export class selectedFileSettings{};
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'imgConvert';
+  title = 'imgConvert' 
 }

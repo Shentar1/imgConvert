@@ -47,5 +47,9 @@
 }
 .preview{
     width:14%;
-    height:auto
+    height:auto;
+}
+#dropArea{
+    height: 100%;
+    width: 100%;
 }

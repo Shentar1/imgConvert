@@ -20,10 +20,34 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('imgConvert');
   });
 
-  it('should render title', () => {
+  it('should have a toolbar', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, imgConvert');
+    expect(compiled.querySelector('toolbar')).toBeTruthy()
   });
+  it('should have file sidebar', ()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('selectedFilesSidebar')).toBeTruthy();
+  });
+  it('should have a section for settings on the selected file', ()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('selectedFileSettings')).toBeTruthy();
+  })
+  it('should have a section to preview changes to the image', ()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('imgPreview')).toBeTruthy();
+  })
+  it('should have an area to select the preview image\'s layers', ()=>{
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('imgPreviewLayers')).toBeTruthy();
+  })
 });

@@ -1,9 +1,10 @@
+<div></div>
+<div id="dropArea" (drop)="itemDropped($event)" (dragover)="dragOver($event)" (dragend)="dragOver($event)">
 @for (file of files; track [$index,file.name,file.path,file.width,file.height, file.preview]) {
-    
     @if(($index+1)%2===0){<div class="sidebarFileItem evenItem">
-        <img class="preview" width="100px" height="100px"/>
+        <img src = {{file.preview}} class="preview"/>
         <div>
-            <span class="index">{{$index}} </span>
+            <span class="index">{{$index +1}} </span>
             <span class="name">{{file.name}}</span>
             <span class="path">{{file.path}}</span>
             <br/>
@@ -13,9 +14,9 @@
     </div>
 }@else {
     <div class="sidebarFileItem oddItem">
-    <img class="preview" width="100px" height="100px"/>
+    <img src = {{file.preview}} class="preview"/>
         <div>
-            <span class="index">{{$index}} </span>
+            <span class="index">{{$index+1}} </span>
             <span class="name">{{file.name}}</span>
             <span class="path">{{file.path}}</span>
             <br/>
@@ -23,5 +24,6 @@
             <span class="height">Height: {{file.height}}</span>
         </div>
     </div>
+    }
 }
-}
+</div>
