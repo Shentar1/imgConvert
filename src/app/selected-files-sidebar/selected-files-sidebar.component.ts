@@ -23,29 +23,37 @@ export class SelectedFilesSidebarComponent {
     if(items){
       Array.from(items).forEach((item)=>{
         if(item){
+          //define valid upload types for security and application stability
           let validFiles = ['image/bmp','image/img','image/png','image/jpeg','image/webp','image/vnd.microsoft.com','image/svg+xml']
-          var itemWidth = 0;
-          var itemHeight = 0;
-          var preview = "";
+          //open a file reader for each image
           const fr = new FileReader();
           fr.onload = (e)=>{
             let img = new Image();
             img.onload = ()=>{
-              preview = e.target?.result as string;
-              itemHeight = img.height;
-              itemWidth = img.width;
-              console.log(itemHeight);
-              console.log(itemWidth);
-              console.log(preview);
+              //get the image in the form of a URL
+              var preview = e.target?.result as string;
+              var itemHeight = img.height;
+              var itemWidth = img.width;
+              //resize image for thumbnail display
+              if(img.height < img.width){
+                img.height = img.height/(img.width/50);
+                img.width = img.width/(img.width/50);
+              }else{
+                img.width = img.width/(img.height/43);
+                img.height = img.height/(img.height/43);
+              }
+              //add all image details to the files array
               this.files.unshift({
                 name:item.name,
-                path:item.webkitRelativePath,
+                size:((item.size/1024)/1024).toFixed(2).toString() + "MB",
                 width:itemWidth,
                 height:itemHeight,
-                preview:preview
+                preview:preview,
+                icoHeight:img.height,
+                icoWidth:img.width,
               })
             }
-            img.src = e.target?.result as string; 
+            img.src = e.target?.result as string;
           }
           if(item)
           if(validFiles.includes(item.type)){

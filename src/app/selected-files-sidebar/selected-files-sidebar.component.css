@@ -4,7 +4,8 @@
     flex-wrap:wrap;
     color:lightslategrey;
     font-size: 12px;
-    max-width: 99%;
+    margin-left:1%;
+    max-width: 98%;
 }
 .sidebarFileItem:hover{
     background-color: #aaaaff;
@@ -16,37 +17,42 @@
     flex-grow:1;
     flex-shrink:1;
     padding-left:1%;
-    justify-items: left;
     text-align: left;
     max-width: 84%;
+    min-width: 10%;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
 }
 .index{
-    display: inline;
-    color:darkslategray;
-    font-size: 18px;
-    text-wrap: nowrap;
-    text-overflow: ellipsis;
-}
-.name{
-    display: inline;
+    display: inline-block;
+    width:5%;
     color:darkslategray;
     font-size: 18px;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
 }
-.path{
-    padding-left:3px;
-    display: inline;
+.name{
+    display: inline-block;
+    width: 75%;
+    color:darkslategray;
+    font-size: 18px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+.size{
+    padding-left:1%;
+    width:19%;
+    display: inline-block;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
 }
 .preview{
-    width:14%;
+    margin:auto;
+    width:2.5vw;
     height:auto;
 }
 #dropArea{
