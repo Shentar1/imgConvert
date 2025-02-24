@@ -102,9 +102,9 @@ export class SelectedFilesSidebarComponent {
           //add file size to the total
           this.totalFileSize += item.size;
         }else if(this.files.length > 50){
-          console.log('too many files');
+          console.log('Attempted to load more than 50 files. Please remove some, or upload less, and try again.');
         }else{
-          console.log('Loaded files is over 100MB');
+          console.log('Attempted to load files that would total over 100MB. Please remove some, resize the files, or upload fewer, and try again.');
         }
       })
     }
