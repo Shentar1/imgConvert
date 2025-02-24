@@ -45,7 +45,7 @@ export class SelectedFilesSidebarComponent {
               //add all image details to the files array
               this.files.unshift({
                 name:item.name,
-                size:((item.size/1024)/1024).toFixed(2).toString() + "MB",
+                size:((item.size/1024)/1024),
                 width:itemWidth,
                 height:itemHeight,
                 preview:preview,

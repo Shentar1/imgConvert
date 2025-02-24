@@ -6,7 +6,7 @@
         <div>
             <span class="index">{{$index +1}} </span>
             <span class="name">{{file.name}}</span>
-            <span class="size">{{file.size}}</span>
+            <span class="size">{{file.size.toFixed(2).toString()}}MB</span>
             <br/>
             <span class="width">Width: {{file.width}}; </span>
             <span class="height">Height: {{file.height}}</span>
@@ -18,7 +18,7 @@
         <div>
             <span class="index">{{$index+1}} </span>
             <span class="name">{{file.name}}</span>
-            <span class="size">{{file.size}}</span>
+            <span class="size">{{file.size.toFixed(2).toString()}}MB</span>
             <br/>
             <span class="width">Width: {{file.width}}; </span>
             <span class="height">Height: {{file.height}}</span>
