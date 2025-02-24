@@ -7,7 +7,17 @@ import { Component } from '@angular/core';
   styleUrl: './selected-files-sidebar.component.css'
 })
 export class SelectedFilesSidebarComponent {
-  files = new Array;
+  private _files = new Array;
+  public get files(){
+    return this._files;
+  }
+  private _totalFileSize = 0;
+  public get totalFileSize(){
+    return this._totalFileSize;
+  }
+  private set totalFileSize(total:number){
+    this._totalFileSize = total;
+  }
   //remove default handling of drag events, since we don't want to open a bunch of tabs
   dragOver(event:DragEvent){
     event.preventDefault();
@@ -16,49 +26,85 @@ export class SelectedFilesSidebarComponent {
   //handle adding the file information to the array of files
   //this will let us  retrieve the files as needed instead of trying to hold them all in memory and running out (possible)
   itemDropped(event:DragEvent){
+
     const items = event.dataTransfer?.files
+    //remove default handling of drop events, since we still don't want to open a bunch of tabs
     event.preventDefault();
     event.stopPropagation();
-    let fr = new FileReader;
     if(items){
       Array.from(items).forEach((item)=>{
-        if(item){
-          //define valid upload types for security and application stability
-          let validFiles = ['image/bmp','image/img','image/png','image/jpeg','image/webp','image/vnd.microsoft.com','image/svg+xml']
-          //open a file reader for each image
-          const fr = new FileReader();
-          fr.onload = (e)=>{
-            let img = new Image();
-            img.onload = ()=>{
-              //get the image in the form of a URL
-              var preview = e.target?.result as string;
-              var itemHeight = img.height;
-              var itemWidth = img.width;
-              //resize image for thumbnail display
-              if(img.height < img.width){
-                img.height = img.height/(img.width/50);
-                img.width = img.width/(img.width/50);
-              }else{
-                img.width = img.width/(img.height/43);
-                img.height = img.height/(img.height/43);
+        if(item && item.size + this.totalFileSize <= 100000000 && items.length + this.files.length <= 50){
+          //use a web-worker to offload processing from the browser
+          if (typeof Worker !== 'undefined') {
+            // Create a new worker
+            let worker = new Worker(new URL('./selected-files-sidebar.worker', import.meta.url));
+            worker.onmessage = (data) => {
+              let img = new Image();
+              img.onload=()=>{
+                //get the image in the form of a URL
+                var preview = data.data as string;
+                var itemHeight = img.height;
+                var itemWidth = img.width;
+                //resize image for thumbnail display
+                if(img.height < img.width){
+                  img.height = img.height/(img.width/50);
+                  img.width = img.width/(img.width/50);
+                }else{
+                  img.width = img.width/(img.height/43);
+                  img.height = img.height/(img.height/43);
+                }
+                //add all image details to the files array
+                 this.files.push({
+                  name:item.name,
+                  size:item.size/1000000,
+                  width:itemWidth,
+                  height:itemHeight,
+                  preview:preview,
+                  icoHeight:img.height,
+                  icoWidth:img.width,
+                })
               }
-              //add all image details to the files array
-              this.files.unshift({
-                name:item.name,
-                size:((item.size/1024)/1024),
-                width:itemWidth,
-                height:itemHeight,
-                preview:preview,
-                icoHeight:img.height,
-                icoWidth:img.width,
-              })
+              img.src = data.data;
+            };
+            worker.postMessage({item});
+          } else {
+            //open a file reader for each image
+            const fr = new FileReader();
+            fr.onload = (e)=>{
+              let img = new Image();
+              img.onload = ()=>{
+                //get the image in the form of a URL
+                var preview = e.target?.result as string;
+                var itemHeight = img.height;
+                var itemWidth = img.width;
+                //resize image for thumbnail display
+                if(img.height < img.width){
+                  img.height = img.height/(img.width/50);
+                  img.width = img.width/(img.width/50);
+                }else{
+                  img.width = img.width/(img.height/43);
+                  img.height = img.height/(img.height/43);
+                }
+                //add all image details to the files array
+                this.files.push({
+                  name:item.name,
+                  size:item.size/1000000,
+                  width:itemWidth,
+                  height:itemHeight,
+                  preview:preview,
+                  icoHeight:img.height,
+                  icoWidth:img.width,
+                })
+              }
+              img.src = e.target?.result as string;
             }
-            img.src = e.target?.result as string;
           }
-          if(item)
-          if(validFiles.includes(item.type)){
-            fr.readAsDataURL(item as Blob)
-          }
+          //add file size to the total
+          this.totalFileSize += item.size;
+        }else if(this.files.length > 50){
+          console.log('too many files');
+        }else{
+          console.log('Loaded files is over 100MB');
         }
       })
     }

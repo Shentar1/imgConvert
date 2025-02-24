@@ -26,7 +26,7 @@
 }
 .index{
     display: inline-block;
-    width:5%;
+    width:10%;
     color:darkslategray;
     font-size: 18px;
     overflow: hidden;
@@ -35,7 +35,7 @@
 }
 .name{
     display: inline-block;
-    width: 75%;
+    width: 70%;
     color:darkslategray;
     font-size: 18px;
     overflow: hidden;
@@ -54,6 +54,29 @@
     margin:auto;
     width:2.5vw;
     height:auto;
+}
+#addFileButton{
+    width: 98%;
+    margin-left:1%;
+    margin-top:1%;
+    background-color: #9999ff;
+}
+#addFileButton:hover{
+    background-color: #aaaaff;
+}
+#addFile{
+    display: inline-block;
+    width:35%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+#fileSize{
+    display: inline-block;
+    width:65%;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 }
 #dropArea{
     height: 100%;
