@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-img-preview',
+  selector: 'imgPreview',
   imports: [],
   templateUrl: './img-preview.component.html',
   styleUrl: './img-preview.component.css'
