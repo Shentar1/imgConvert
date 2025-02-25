@@ -55,11 +55,15 @@
     width:2.5vw;
     height:auto;
 }
+#addFileInput{
+    display: none;
+}
 #addFileButton{
     width: 98%;
     margin-left:1%;
     margin-top:1%;
-    background-color: #9999ff;
+    background-color: #99f;
+    background-repeat: no-repeat;
 }
 #addFileButton:hover{
     background-color: #aaaaff;

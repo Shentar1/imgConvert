@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, viewChildren, ViewChildren} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ToolbarComponent} from './toolbar/toolbar.component'
 import { ControlsComponent } from './controls/controls.component';
@@ -10,8 +10,13 @@ import { ImgPreviewLayersComponent } from './img-preview-layers/img-preview-laye
   selector: 'app-root',
   imports: [RouterOutlet, ToolbarComponent,SelectedFileSettingsComponent,SelectedFilesSidebarComponent,ImgPreviewComponent,ImgPreviewLayersComponent,ControlsComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'imgConvert' 
+  title = 'imgConvert';
+  public noDragFunctions(e:Event){
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
 }

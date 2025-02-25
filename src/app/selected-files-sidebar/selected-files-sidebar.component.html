@@ -1,4 +1,4 @@
-<div id="addFileButton"><span id="addFile">Add File</span><span id="fileSize">{{(totalFileSize/1000000).toFixed(2)}}MB/100MB   {{files.length}}/50 Files</span></div>
+<div id="addFileButton" [style.background-image]="backgroundImage" [style.background-size]="backgroundSize + '%'" (click)="input.click()"><input #input id="addFileInput" type="file" (change)="openFilePicker($event)" (openFilePickerEvent)="openFilePicker($event)"/><span id="addFile">Add File</span><span id="fileSize">{{(totalFileSize/1000000).toFixed(2)}}MB/100MB   {{files.length}}/50 Files</span></div>
 <div id="dropArea" (drop)="itemDropped($event)" (dragover)="dragOver($event)" (dragend)="dragOver($event)">
 @for (file of files; track [$index,file.name,file.path,file.width,file.height, file.preview]) {
     @if(($index+1)%2===0){<div class="sidebarFileItem evenItem">
