@@ -6,6 +6,7 @@ import { SelectedFilesSidebarComponent } from './selected-files-sidebar/selected
 import { SelectedFileSettingsComponent } from './selected-file-settings/selected-file-settings.component';
 import { ImgPreviewComponent } from './img-preview/img-preview.component';
 import { ImgPreviewLayersComponent } from './img-preview-layers/img-preview-layers.component';
+import { FileObject } from './Classes/FileObject'
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ToolbarComponent,SelectedFileSettingsComponent,SelectedFilesSidebarComponent,ImgPreviewComponent,ImgPreviewLayersComponent,ControlsComponent],
@@ -14,9 +15,12 @@ import { ImgPreviewLayersComponent } from './img-preview-layers/img-preview-laye
 })
 export class AppComponent {
   title = 'imgConvert';
+  public clickedImage:any;
   public noDragFunctions(e:Event){
     e.preventDefault();
     e.stopPropagation();
   }
-
+  public imageClicked(e:FileObject){
+    this.clickedImage = e;
+  }
 }

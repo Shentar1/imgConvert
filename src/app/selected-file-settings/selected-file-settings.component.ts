@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, IterableDiffers } from '@angular/core';
+import { FileObject } from '../Classes/FileObject';
 
 @Component({
   selector: 'selectedFileSettings',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './selected-file-settings.component.css'
 })
 export class SelectedFileSettingsComponent {
+  /**
+   * inputs
+   */
+  @Input() selectedFile?:FileObject;
   /**
    * class properties - public get,private set
    */
@@ -21,63 +26,50 @@ export class SelectedFileSettingsComponent {
   private set imageSettings(settings:SettingsObject){
     this._imageSettings=settings;
   }
+  public colorSimilarityChanged(s:string){  
+    this.imageSettings.colorSimilarityChanged(s);
+    this.estimateLayers();
+  }
+  public startingColorChanged(s:string){
+    this.imageSettings.startingColorChanged(s)
+    this.estimateLayers()
+  }
+  private estimateLayers(){
+    let layerCount = 0;
+    let startingRed = this.imageSettings.startingColor.substring(1,3);
+    let startingBlue = this.imageSettings.startingColor.substring(3,5);
+    let startingGreen = this.imageSettings.startingColor.substring(5,7);
+    try{
+      let blue = parseInt("0x"+startingBlue);
+      let red = parseInt("0x"+startingRed);
+      let green = parseInt("0x"+startingGreen);
+      layerCount = Math.ceil(256 / (this.imageSettings.colorSimilarity*256/100));
+      this.imageSettings.layersToCreate = layerCount;
+    }catch(e){
+      console.log(e)
+    }
+  }
 }
 class SettingsObject{
   /**
    * class properties - public get, private set
    */
-  private _name = '';
-  
-  public get name() : string {
-    return this._name 
-  }
-  private set name(s:string){
-    this.name = s;
-  }
-  private _size = 0;
-  public get size():number{
-    return this._size;
-  }
-  private set size(n:number){
-    this._size=n
-  }
-  private _height = 0;
-  public get height():number{
-    return this._height;
-  }
-  private set height(n:number){
-    this._height= n;
-  }
-  private _width = 0;
-  public get width():number{
-    return this._width;
-  }
-  private set width(n:number){
-    this._width = n;
-  }
-  private _source = '';
-  public get source():string{
-    return this._source;
-  }
-  private set source(s:string){
-    this._source = s;
-  }
-  private _startingColor = '';
+  private _startingColor = '#888888';
   public get startingColor():string{
     return this._startingColor;
   }
   private set startingColor(s:string){
     this._startingColor = s;
   }
-  private _colorSimilarity = 0;
+  private _colorSimilarity = 25;
   public get colorSimilarity():number{
     return this._colorSimilarity;
   }
-  private _layersToCreate = 0;
+  private _layersToCreate = 4;
   public get layersToCreate():number{
     return this._layersToCreate;
   }
-  private set layersToCreate(n:number){
+  set layersToCreate(n:number){
     this._layersToCreate = n
   }
   private set colorSimilarity(n:number){
@@ -90,5 +82,10 @@ class SettingsObject{
   private set outputFormat(s:string){
     this._outputFormat = s;
   }
-
+  public colorSimilarityChanged(s:string){
+    this.colorSimilarity = parseInt(s);
+  }
+  public startingColorChanged(s:string){
+    this.startingColor = s;
+  }
 }

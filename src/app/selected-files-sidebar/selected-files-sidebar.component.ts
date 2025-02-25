@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FileObject } from '../Classes/FileObject';
 
 @Component({
   selector: 'selectedFilesSidebar ',
@@ -7,7 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './selected-files-sidebar.component.css'
 })
 export class SelectedFilesSidebarComponent {
-  private _files = new Array;
+  @Output() imageClickedEventEmitter = new EventEmitter<FileObject>
+  private _files = new Array<FileObject>;
   public get files(){
     return this._files;
   }
@@ -37,7 +39,7 @@ export class SelectedFilesSidebarComponent {
     img.onload=()=>{
       if(this.files.length < 50 && i.size + this.totalFileSize <= 100000000){
         //get the image in the form of a URL
-        var preview = imgString as string;
+        var source = imgString as string;
         var itemHeight = img.height;
         var itemWidth = img.width;
         //resize image for thumbnail display
@@ -49,15 +51,7 @@ export class SelectedFilesSidebarComponent {
           img.height = img.height/(img.height/43);
         }
         //add all image details to the files array
-        this.files.push({
-          name:i.name,
-          size:i.size/1000000,
-          width:itemWidth,
-          height:itemHeight,
-          preview:preview,
-          icoHeight:img.height,
-          icoWidth:img.width,
-        })
+        this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
         //add file size to the total
         this.totalFileSize += i.size;
         //calculate the end points of a gradient as a visual for how 'full' the application is 
@@ -78,8 +72,10 @@ export class SelectedFilesSidebarComponent {
    * BEGIN EVENT HANDLING SECTION
    */
   //Process clicked image and send it to imgPreview and selectedFileSettings components
-  public imageClicked(e:Event){
-    
+  public imageClicked(n:number){
+    if(this.files[n]){
+      this.imageClickedEventEmitter.emit(this.files[n])
+    }
   }
   //Allows choosing of files from a file picking window
   public openFilePicker(e:Event){

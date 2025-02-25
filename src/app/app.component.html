@@ -1,10 +1,10 @@
 <main class="main" (drop)="noDragFunctions($event)" (dragover)="noDragFunctions($event)" (dragend)="noDragFunctions($event)" (dragenter)="noDragFunctions($event)" (dragleave)="noDragFunctions($event)">
   <toolbar></toolbar>
   <div id="selectedFilesSidebar">
-    <selectedFilesSidebar></selectedFilesSidebar>
+    <selectedFilesSidebar (imageClickedEventEmitter)="imageClicked($event)"></selectedFilesSidebar>
   </div>
   <div id="selectedFileSettings">
-    <selectedFileSettings></selectedFileSettings>
+    <selectedFileSettings [selectedFile]="this.clickedImage"></selectedFileSettings>
     <controls></controls>
   </div>
   <div id="imgPreview">
