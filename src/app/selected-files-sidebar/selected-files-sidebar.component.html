@@ -1,4 +1,4 @@
-<div id="addFileButton"><span id="addFile">Add File</span><span id="fileSize">{{(totalFileSize/1000000).toFixed(2)}}MB/100MB</span></div>
+<div id="addFileButton"><span id="addFile">Add File</span><span id="fileSize">{{(totalFileSize/1000000).toFixed(2)}}MB/100MB   {{files.length}}/50 Files</span></div>
 <div id="dropArea" (drop)="itemDropped($event)" (dragover)="dragOver($event)" (dragend)="dragOver($event)">
 @for (file of files; track [$index,file.name,file.path,file.width,file.height, file.preview]) {
     @if(($index+1)%2===0){<div class="sidebarFileItem evenItem">
@@ -6,7 +6,7 @@
         <div>
             <span class="index">{{$index +1}} </span>
             <span class="name">{{file.name}}</span>
-            <span class="size">{{file.size.toFixed(2).toString()}}MB</span>
+            <span class="size">{{file.size.toFixed(2)}}MB</span>
             <br/>
             <span class="width">Width: {{file.width}}; </span>
             <span class="height">Height: {{file.height}}</span>
@@ -18,7 +18,7 @@
         <div>
             <span class="index">{{$index+1}} </span>
             <span class="name">{{file.name}}</span>
-            <span class="size">{{file.size.toFixed(2).toString()}}MB</span>
+            <span class="size">{{file.size.toFixed(2)}}MB</span>
             <br/>
             <span class="width">Width: {{file.width}}; </span>
             <span class="height">Height: {{file.height}}</span>
