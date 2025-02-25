@@ -77,6 +77,10 @@ export class SelectedFilesSidebarComponent {
   /**
    * BEGIN EVENT HANDLING SECTION
    */
+  //Process clicked image and send it to imgPreview and selectedFileSettings components
+  public imageClicked(e:Event){
+    
+  }
   //Allows choosing of files from a file picking window
   public openFilePicker(e:Event){
     let target = e?.target as HTMLInputElement;
