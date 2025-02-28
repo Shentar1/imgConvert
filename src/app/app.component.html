@@ -4,12 +4,12 @@
     <selectedFilesSidebar (imageClickedEventEmitter)="imageClicked($event)"></selectedFilesSidebar>
   </div>
   <div id="selectedFileSettings">
-    <selectedFileSettings [selectedFile]="this.clickedImage"></selectedFileSettings>
+    <selectedFileSettings [selectedFile]="this.clickedImage" (RecolouredImageEmitter)="imageRecolored($event)"></selectedFileSettings>
     <controls></controls>
   </div>
   <div id="imgPreview">
-    <imgPreview></imgPreview>
-    <imgPreviewLayers></imgPreviewLayers>
+    <imgPreview [recoloredImage]="this.recoloredImage"></imgPreview>
+    <imgPreviewLayers [recoloredImage] ="this.recoloredImage"></imgPreviewLayers>
   </div>
 
 </main>

@@ -9,6 +9,7 @@ import { FileObject } from '../Classes/FileObject';
 })
 export class SelectedFilesSidebarComponent {
   @Output() imageClickedEventEmitter = new EventEmitter<FileObject>
+  
   private _files = new Array<FileObject>;
   public get files(){
     return this._files;
@@ -40,8 +41,29 @@ export class SelectedFilesSidebarComponent {
       if(this.files.length < 50 && i.size + this.totalFileSize <= 100000000){
         //get the image in the form of a URL
         var source = imgString as string;
-        var itemHeight = img.height;
-        var itemWidth = img.width;
+        // compress image data to a maximum of 500x500 pixels, maintaining aspect ratio
+        const maxDimension = 500;
+        let itemHeight = img.height;
+        let itemWidth = img.width;
+        if (itemHeight > maxDimension || itemWidth > maxDimension) {
+          if (itemHeight > itemWidth) {
+            itemWidth = (itemWidth / itemHeight) * maxDimension;
+            itemHeight = maxDimension;
+          } else {
+            itemHeight = (itemHeight / itemWidth) * maxDimension;
+            itemWidth = maxDimension;
+          }
+        }
+        // Create a canvas to resize the image
+        const canvas = document.createElement('canvas');
+        canvas.width = itemWidth;
+        canvas.height = itemHeight;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, itemWidth, itemHeight);
+          // Get the resized image data
+          var source = canvas.toDataURL('image/jpeg', 0.7); // Adjust the quality as needed
+        }
         //resize image for thumbnail display
         if(img.height < img.width){
           img.height = img.height/(img.width/50);

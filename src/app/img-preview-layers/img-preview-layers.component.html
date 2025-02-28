@@ -1,1 +1,11 @@
-<p>img-preview-layers works!</p>
+<span>
+@defer{
+    @for(layer of recoloredImage; track [layer, $index]){
+        @if($index%2==0){
+            <div class="evenItem"><img src={{getLayerDetails($index)}} width="50"/></div>
+        }@else{
+            <div class="oddItem"><img src={{getLayerDetails($index)}} width="50"/></div>
+        }
+    }
+}
+</span>

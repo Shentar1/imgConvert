@@ -48,18 +48,22 @@ controls{
     background-color: #ccf;
 }
 imgPreview{
+    position:relative;
     box-shadow:#111 0px 0px 3px 1px inset; 
     background-color: #ccf;
-    display: block;
+    display: flex;
     flex-grow: 1;
     flex-shrink:1;
     color:black;
+    overflow:scroll;
 }
 imgPreviewLayers{
+    min-height: 150px;
     box-shadow:#111 0px 0px 3px 1px inset; 
     height:150px;
     width: 55vw;
     background-color:#ccf;
     text-align: center;
     vertical-align: middle;
+    overflow: scroll;
 }

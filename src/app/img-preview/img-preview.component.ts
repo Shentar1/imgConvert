@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'imgPreview',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './img-preview.component.css'
 })
 export class ImgPreviewComponent {
-
+  @Input() recoloredImage?:Array<string>;
 }

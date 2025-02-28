@@ -16,11 +16,15 @@ import { FileObject } from './Classes/FileObject'
 export class AppComponent {
   title = 'imgConvert';
   public clickedImage:any;
+  public recoloredImage?:Array<string>;
   public noDragFunctions(e:Event){
     e.preventDefault();
     e.stopPropagation();
   }
   public imageClicked(e:FileObject){
     this.clickedImage = e;
+  }
+  public imageRecolored(s:Array<string>){
+    this.recoloredImage = s;
   }
 }

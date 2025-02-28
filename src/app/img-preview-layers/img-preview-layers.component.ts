@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'imgPreviewLayers',
@@ -7,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrl: './img-preview-layers.component.css'
 })
 export class ImgPreviewLayersComponent {
+  @Input() recoloredImage?:Array<string>
 
+  public getLayerDetails(i:number):string{
+    let src = "";
+    if(this.recoloredImage){
+      if(this.recoloredImage[i]){
+        src = this.recoloredImage[i]
+      }
+    }
+    return src;
+  }
 }

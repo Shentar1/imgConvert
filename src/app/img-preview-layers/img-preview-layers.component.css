@@ -1,0 +1,16 @@
+div{
+    display:inline-block;
+}
+span{
+    display:inline-block;
+    margin-top: 1%;
+}
+div:hover{
+    background-color: #99f;
+}
+.evenItem{
+    background-color: #aaf;
+}
+.oddItem{
+    background-color: #bbf;
+}
