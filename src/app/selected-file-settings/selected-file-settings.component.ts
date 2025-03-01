@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FileObject } from '../Classes/FileObject';
+import { potrace, init} from 'esm-potrace-wasm'
 
 @Component({
   selector: 'selectedFileSettings',
@@ -9,9 +10,17 @@ import { FileObject } from '../Classes/FileObject';
 })
 export class SelectedFileSettingsComponent {
   /**
+   * constructor
+   */
+    public constructor(){
+    this.initPotrace();
+    this._settingsArray = new Array<SettingsObject>();
+    this._imageSettings = new SettingsObject();
+  }
+  /**
    * outputs
    */
-  @Output() RecolouredImageEmitter = new EventEmitter<Array<string>>;
+  @Output() RecolouredImageEmitter = new EventEmitter<Element>;
   /**
    * inputs
    */
@@ -19,11 +28,15 @@ export class SelectedFileSettingsComponent {
   /**
    * class properties - public get,private set
    */
-  private _settingsArray = new Array();
+
+  private _settingsArray:Array<SettingsObject>;
   public get settingsArray(){
     return this._settingsArray;
   }
-  private _imageSettings = new SettingsObject();
+  private set settingsArray(settingsArray:Array<SettingsObject>){
+    this._settingsArray = settingsArray;
+  }
+  private _imageSettings:SettingsObject;
   public get imageSettings(){
     return this._imageSettings;
   }
@@ -38,56 +51,33 @@ export class SelectedFileSettingsComponent {
     this.imageSettings.startingColorChanged(s)
     this.estimateLayers()
   }
-  private recolorImage(imgString?:string,similarity?:number,startingColor?:Array<number>){{
+  private async initPotrace(){
+    await init();
+  }
+  private async recolorImage(imgString?:string,similarity?:number,startingColor?:Array<number>){{
     if(imgString && similarity && startingColor){
       try{
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        if (!ctx) throw new Error('Could not get canvas context');
-
+        console.log(similarity);
         const img = new Image();
         img.src = imgString;
-        canvas.width = img.width;
-        canvas.height = img.height;
-        new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
+        var parser = new DOMParser();
+        const svg = await potrace(img,{
+          turdsize:similarity,
+          turnpolicy:4,
+          alphamax:0,
+          opticurve:1,
+          opttolerance:0.2,
+          pathonly:false,
+          extractcolors:false,
+          posterizelevel:0,
+          posterizationalgorithmn:0,
         });
-        ctx.drawImage(img, 0, 0);
-
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-
-        const layers = new Map<string, ImageData>();
-        for (let i = 0; i < data.length; i += 4) {
-          const red = data[i];
-          const green = data[i + 1];
-          const blue = data[i + 2];
-
-          const preserveColor = (color: number) => Math.min(255, Math.max(0, color));
-
-          const newRed = preserveColor(Math.round(red / similarity) * similarity);
-          const newGreen = preserveColor(Math.round(green / similarity) * similarity);
-          const newBlue = preserveColor(Math.round(blue / similarity) * similarity);
-
-          const colorKey = `${newRed},${newGreen},${newBlue}`;
-          if (!layers.has(colorKey)) {
-            layers.set(colorKey, ctx.createImageData(canvas.width, canvas.height));
-          }
-
-          const layerData = layers.get(colorKey)!.data;
-          layerData[i] = newRed;
-          layerData[i + 1] = newGreen;
-          layerData[i + 2] = newBlue;
-          layerData[i + 3] = data[i + 3]; // copy alpha channel
+        let e = parser.parseFromString(svg, "image/svg+xml").firstElementChild;
+        if(e){
+          this.RecolouredImageEmitter.emit(e);
+        }else{
+          console.log(e)
         }
-        let recoloredImage = new Array<string>;
-        layers.forEach((layerData, colorKey) => {
-          ctx.putImageData(layerData, 0, 0);
-          const layerImage = canvas.toDataURL();
-          recoloredImage.push(layerImage);
-        });
-        this.RecolouredImageEmitter.emit(recoloredImage);
       }catch(e){
         console.log(e)
       }
@@ -103,7 +93,7 @@ export class SelectedFileSettingsComponent {
       let red = parseInt("0x"+startingRed);
       let green = parseInt("0x"+startingGreen);
       this.imageSettings.layersToCreate = layerCount;
-      this.recolorImage(this.selectedFile?.source,Math.ceil(this.imageSettings.colorSimilarity*2.56),[red, blue, green]);
+      this.recolorImage(this.selectedFile?.source,Math.ceil(this.imageSettings.colorSimilarity),[red, blue, green]);
     }catch(e){
       console.log(e)
     }

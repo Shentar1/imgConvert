@@ -42,7 +42,7 @@ export class SelectedFilesSidebarComponent {
         //get the image in the form of a URL
         var source = imgString as string;
         // compress image data to a maximum of 500x500 pixels, maintaining aspect ratio
-        const maxDimension = 500;
+        const maxDimension = 1000;
         let itemHeight = img.height;
         let itemWidth = img.width;
         if (itemHeight > maxDimension || itemWidth > maxDimension) {

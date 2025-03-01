@@ -7,15 +7,19 @@ import { Component, Input } from '@angular/core';
   styleUrl: './img-preview-layers.component.css'
 })
 export class ImgPreviewLayersComponent {
-  @Input() recoloredImage?:Array<string>
+  @Input() recoloredImage?:Element;
 
-  public getLayerDetails(i:number):string{
-    let src = "";
-    if(this.recoloredImage){
-      if(this.recoloredImage[i]){
-        src = this.recoloredImage[i]
+  public insertSVGPaths?:Function;
+  ngOnInit(){
+    /*this.insertSVGPaths = (e:Element)=>{
+      let container = document.getElementById('imgContainer');
+      if(e.children.length > 1){
+        for(let i = 0; i < e.children.length; i++){
+          let layer = document.createElement('svg')
+          layer.appendChild(e.children[i]);
+          container?.appendChild(layer);
+        }
       }
-    }
-    return src;
+    };*/
   }
 }

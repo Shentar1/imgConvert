@@ -1,5 +1,7 @@
-@defer{ 
-    @for(layer of recoloredImage; track [layer]){
-    <img src = {{layer}}/> 
+
+@defer {<div id ='imgContainer'>
+    @if(this.recoloredImage){
+        {{this.insertSVG(this.recoloredImage)}}
     }
+</div>
 }
