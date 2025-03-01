@@ -54,23 +54,16 @@ export class SelectedFileSettingsComponent {
   private async initPotrace(){
     await init();
   }
-  private async recolorImage(imgString?:string,similarity?:number,startingColor?:Array<number>){{
-    if(imgString && similarity && startingColor){
+  private async recolorImage(imgString?:string,similarity?:number,backgroundColor?:Array<number>){{
+    if(imgString && similarity && backgroundColor){
       try{
-        console.log(similarity);
         const img = new Image();
         img.src = imgString;
         var parser = new DOMParser();
         const svg = await potrace(img,{
           turdsize:similarity,
-          turnpolicy:4,
-          alphamax:0,
-          opticurve:1,
-          opttolerance:0.2,
-          pathonly:false,
-          extractcolors:false,
-          posterizelevel:0,
-          posterizationalgorithmn:0,
+          posterizelevel:1,
+          posterizationalgorithm:0
         });
         let e = parser.parseFromString(svg, "image/svg+xml").firstElementChild;
         if(e){
@@ -84,16 +77,14 @@ export class SelectedFileSettingsComponent {
     }
   }}
   private estimateLayers(){
-    let layerCount = 0;
-    let startingRed = this.imageSettings.startingColor.substring(1,3);
-    let startingBlue = this.imageSettings.startingColor.substring(3,5);
-    let startingGreen = this.imageSettings.startingColor.substring(5,7);
+    let startingRed = this.imageSettings.backgroundColor.substring(1,3);
+    let startingBlue = this.imageSettings.backgroundColor.substring(3,5);
+    let startingGreen = this.imageSettings.backgroundColor.substring(5,7);
     try{
       let blue = parseInt("0x"+startingBlue);
       let red = parseInt("0x"+startingRed);
       let green = parseInt("0x"+startingGreen);
-      this.imageSettings.layersToCreate = layerCount;
-      this.recolorImage(this.selectedFile?.source,Math.ceil(this.imageSettings.colorSimilarity),[red, blue, green]);
+      this.recolorImage(this.selectedFile?.source,Math.ceil(this.imageSettings.colorSimilarity),[red, green, blue]);
     }catch(e){
       console.log(e)
     }
@@ -103,12 +94,12 @@ class SettingsObject{
   /**
    * class properties - public get, private set
    */
-  private _startingColor = '#888888';
-  public get startingColor():string{
-    return this._startingColor;
+  private _backgroundColor = '#888888';
+  public get backgroundColor():string{
+    return this._backgroundColor;
   }
   private set startingColor(s:string){
-    this._startingColor = s;
+    this._backgroundColor = s;
   }
   private _colorSimilarity = 25;
   public get colorSimilarity():number{
