@@ -1,7 +1,3 @@
-
-@defer {<div id ='imgContainer'>
-    @if(this.recoloredImage){
-        {{this.insertSVG(this.recoloredImage)}}
-    }
+<div #img>
+    {{appendImage(this.generateSVGService.svgElement, img)}}
 </div>
-}

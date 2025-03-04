@@ -2,16 +2,9 @@
     <div>Name: {{this.selectedFile.name}}</div>
     <div>Width: {{this.selectedFile.width}} <span> Height: {{this.selectedFile.height}}</span></div>
     <div>Size {{(this.selectedFile.size/1000000).toFixed(2)}}MB</div>
-    <div>Color Similarity: <input type="range" max="100" min="1" [value]="this.imageSettings.colorSimilarity" #colorSimilarity (change)="colorSimilarityChanged(colorSimilarity.value)"/>{{this.imageSettings.colorSimilarity}}</div>
+    <div>Color Precision: <input type="range" max="25" min="1" [value]="this.imageSettings.colorSimilarity" #colorSimilarity (change)="colorSimilarityChanged(colorSimilarity.value)"/>{{this.imageSettings.colorSimilarity}}</div>
     <div>First Color To Seperate: <input type="color" [value]="this.imageSettings.backgroundColor" #startingColor (change)="startingColorChanged(startingColor.value)"/>{{this.imageSettings.backgroundColor}}</div>
-    <div>Estimated Layers Created: {{this.imageSettings.layersToCreate}}</div>
     <div>Output Format: <select>
         <option>SVG</option>
-        <option>PNG</option>
-        <option>JPEG</option>
-        <option>WEBP</option>
-        <option>BMP</option>
-        <option>ICO</option>
-        <option>IMG</option>
     </select></div>
 }

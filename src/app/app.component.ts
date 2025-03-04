@@ -16,7 +16,7 @@ import { FileObject } from './Classes/FileObject'
 export class AppComponent {
   title = 'imgConvert';
   public clickedImage:any;
-  public recoloredImage?:Element;
+  public recoloredImage?:SVGSVGElement;
   public noDragFunctions(e:Event){
     e.preventDefault();
     e.stopPropagation();
@@ -24,7 +24,7 @@ export class AppComponent {
   public imageClicked(e:FileObject){
     this.clickedImage = e;
   }
-  public imageRecolored(s:Element){
+  public imageRecolored(s:SVGSVGElement){
     this.recoloredImage = s;
   }
 }

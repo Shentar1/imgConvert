@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FileObject } from '../Classes/FileObject';
+import { GenerateSVGService } from '../generate-svg.service';
 
 @Component({
   selector: 'selectedFilesSidebar ',
@@ -10,93 +11,15 @@ import { FileObject } from '../Classes/FileObject';
 export class SelectedFilesSidebarComponent {
   @Output() imageClickedEventEmitter = new EventEmitter<FileObject>
   
-  private _files = new Array<FileObject>;
-  public get files(){
-    return this._files;
-  }
-  private _totalFileSize = 0;
-  public get totalFileSize(){
-    return this._totalFileSize;
-  }
-  private set totalFileSize(total:number){
-    this._totalFileSize = total;
-  }
-  private _backgroundImage = ''
-  public get backgroundImage(){
-    return this._backgroundImage;
-  }
-  private set backgroundImage(s:string){
-    this._backgroundImage=s;
-  }
-  private _backgroundSize = 0;
-  public get backgroundSize(){
-    return this._backgroundSize;
-  }
-  private set backgroundSize(n:number){
-    this._backgroundSize = n;
-  }
-  private loadImg(imgString:string,i:File) {
-    let img = new Image();
-    img.onload=()=>{
-      if(this.files.length < 50 && i.size + this.totalFileSize <= 100000000){
-        //get the image in the form of a URL
-        var source = imgString as string;
-        // compress image data to a maximum of 500x500 pixels, maintaining aspect ratio
-        const maxDimension = 1500;
-        let itemHeight = img.height;
-        let itemWidth = img.width;
-        if (itemHeight > maxDimension || itemWidth > maxDimension) {
-          if (itemHeight > itemWidth) {
-            itemWidth = (itemWidth / itemHeight) * maxDimension;
-            itemHeight = maxDimension;
-          } else {
-            itemHeight = (itemHeight / itemWidth) * maxDimension;
-            itemWidth = maxDimension;
-          }
-        }
-        // Create a canvas to resize the image
-        const canvas = document.createElement('canvas');
-        canvas.width = itemWidth;
-        canvas.height = itemHeight;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, itemWidth, itemHeight);
-          // Get the resized image data
-          var source = canvas.toDataURL('image/jpeg', 0.7); // Adjust the quality as needed
-        }
-        //resize image for thumbnail display
-        if(img.height < img.width){
-          img.height = img.height/(img.width/50);
-          img.width = img.width/(img.width/50);
-        }else{
-          img.width = img.width/(img.height/43);
-          img.height = img.height/(img.height/43);
-        }
-        //add all image details to the files array
-        this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
-        //add file size to the total
-        this.totalFileSize += i.size;
-        //calculate the end points of a gradient as a visual for how 'full' the application is 
-        let backgroundSize = this.totalFileSize/1000000<this.files.length*100/50?this.files.length*100/50:this.totalFileSize/1000000
-        let backgroundOpacityEnd = this.totalFileSize/1000000<this.files.length*255/50?Math.round(this.files.length*255/50):Math.round(this.totalFileSize*255/1000000)
-        this.backgroundImage = "linear-gradient(to right, #aaa0, #aaaaaaa"+backgroundOpacityEnd.toString(16)+")"
-        this.backgroundSize = backgroundSize;
-      }else if (this.files.length >= 50){
-        console.log('Attempted to load more than 50 files. Please remove some, or upload less, and try again.');
-      }else{
-        console.log('Attempted to load files that would total over 100MB. Please remove some, resize the files, or upload fewer, and try again.');
-      }
-    }
-    img.src = imgString;
-  };
+  protected generateSVGService = inject(GenerateSVGService);
 
   /**
    * BEGIN EVENT HANDLING SECTION
    */
   //Process clicked image and send it to imgPreview and selectedFileSettings components
   public imageClicked(n:number){
-    if(this.files[n]){
-      this.imageClickedEventEmitter.emit(this.files[n])
+    if(this.generateSVGService.files[n]){
+      this.imageClickedEventEmitter.emit(this.generateSVGService.files[n])
     }
   }
   //Allows choosing of files from a file picking window
@@ -109,8 +32,8 @@ export class SelectedFilesSidebarComponent {
           if (typeof Worker !== 'undefined') {
             // Create a new worker
             let worker = new Worker(new URL('./selected-files-sidebar.worker', import.meta.url));
-            worker.onmessage = (data) => {
-                this.loadImg(data.data, item);
+            worker.onmessage = async (data) => {
+                await this.generateSVGService.loadImg(data.data, item)
               }
             worker.postMessage({item});
           } else {
@@ -119,7 +42,7 @@ export class SelectedFilesSidebarComponent {
             const fr = new FileReader();
             fr.onload = (e)=>{
               if(e){
-                this.loadImg(e.target?.result as string, item)
+                this.generateSVGService.loadImg(e.target?.result, item);
               }
             }
           }
@@ -146,8 +69,8 @@ export class SelectedFilesSidebarComponent {
           if (typeof Worker !== 'undefined') {
             // Create a new worker
             let worker = new Worker(new URL('./selected-files-sidebar.worker', import.meta.url));
-            worker.onmessage = (data) => {
-                this.loadImg(data.data, item);
+            worker.onmessage = async (data) => {
+              await this.generateSVGService.loadImg(data.data, item);
               }
             worker.postMessage({item});
           } else {
@@ -156,7 +79,7 @@ export class SelectedFilesSidebarComponent {
             const fr = new FileReader();
             fr.onload = (e)=>{
               if(e){
-                this.loadImg(e.target?.result as string, item)
+                this.generateSVGService.loadImg(e.target?.result, item);
               }
             }
           }

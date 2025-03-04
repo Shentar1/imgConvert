@@ -1,5 +1,5 @@
-import { XmlParser } from '@angular/compiler';
-import { Component, contentChild, Input} from '@angular/core';
+import { Component, inject} from '@angular/core';
+import { GenerateSVGService } from '../generate-svg.service';
 
 @Component({
   selector: 'imgPreview',
@@ -8,14 +8,11 @@ import { Component, contentChild, Input} from '@angular/core';
   styleUrl: './img-preview.component.css'
 })
 export class ImgPreviewComponent {
-  @Input() recoloredImage?:Element;
-
-  public insertSVG(e:Element){
-    let container = document.getElementById('imgContainer');
-    if(container){
-      container.innerHTML = '';
-      container.appendChild(e);
+  protected generateSVGService = inject(GenerateSVGService);
+  protected appendImage(e:Element, p:Element){
+    if(p){
+      p.innerHTML = '';
+      p.innerHTML = e.outerHTML
     }
-  };
-  
+  }
 }

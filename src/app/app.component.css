@@ -64,6 +64,5 @@ imgPreviewLayers{
     width: 55vw;
     background-color:#ccf;
     text-align: center;
-    vertical-align: middle;
     overflow: scroll;
 }

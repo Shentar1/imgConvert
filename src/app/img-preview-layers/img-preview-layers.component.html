@@ -1,9 +1,7 @@
-<span id = 'imgContainer'>
-@defer{
-    @if(this.recoloredImage){
-        @if(this.insertSVGPaths){
-            {{this.insertSVGPaths(this.recoloredImage)}}
-        }
-    }
+@for(layer of generateSVGService.svgElement.children; track [$index, layer]){
+    <div>
+        <svg #svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50" height="50" [attr.viewBox]="this.generateSVGService.viewBoxSize">
+            {{appendLayer(layer, svg)}}
+        </svg>
+    </div>
 }
-</span>
