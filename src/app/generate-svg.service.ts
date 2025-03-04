@@ -62,9 +62,10 @@ export class GenerateSVGService {
     img.src = imgString;
   }
   public removeFile(n:number){
-    if(this.files[n]){
-      this.totalFileSize -= this.files[n].size/1000000;
-      this.files.splice(n,1);
+    let index = this.files.findIndex((i)=>i.index === n)
+    if(this.files[index]){
+      this.totalFileSize -= this.files[index].size/1000000;
+      this.files.splice(index,1);
      }
      else{
       console.log('nothing to remove');
