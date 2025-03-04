@@ -11,7 +11,7 @@ export class SettingsObject{
     private set colorSimilarity(n:number){
       this._colorSimilarity=n;
     }
-    private _outputFormat = '';
+    private _outputFormat = 'svg';
     public get outputFormat():string{
       return this._outputFormat;
     }
@@ -20,5 +20,9 @@ export class SettingsObject{
     }
     public colorSimilarityChanged(s:string){
       this.colorSimilarity = parseInt(s);
+    }
+    public resetOptions(){
+      this.colorSimilarity = 1;
+      this.outputFormat = 'svg';
     }
   }

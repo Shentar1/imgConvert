@@ -24,6 +24,6 @@ export class ControlsComponent {
   }
   protected resetClicked(){
     if(this.generateSVGService.imageSettings)
-      this.generateSVGService.imageSettings = new SettingsObject();
+      this.generateSVGService.imageSettings.resetOptions();
   }
 }
