@@ -1,12 +1,30 @@
 svg{
-    margin-top:1%
+    vertical-align: middle;
+    display:inline;
+    width:50px;
+    height:50px;
+}
+span{
+    vertical-align: middle;
+    display:inline-block;
+    padding:5px;
+    text-align: center;
+    box-shadow: #111 3px 3px 3px 3px;
+    user-select: none;
+    min-width: 75px;
+}
+div{
+    justify-content: space-around;
+    display:flex;
+    margin-left:2px;
+    line-height:50px;
+    border:1px solid #000;
+    padding-top:5px;
+    padding-bottom:5px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 }
 div:hover{
     background-color: #99f;
-}
-.evenItem{
-    background-color: #aaf;
-}
-.oddItem{
-    background-color: #bbf;
 }
