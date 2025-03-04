@@ -33,4 +33,8 @@ export class ControlsComponent {
       console.log('no file selected');
     }
   }
+  protected saveClicked(){
+    if(this.generateSVGService.svgElement)
+    this.generateSVGService.saveSVG();
+  }
 }

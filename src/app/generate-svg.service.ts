@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FileObject } from './Classes/FileObject';
 import { SettingsObject } from './Classes/SettingsObject';
 import { potrace} from 'esm-potrace-wasm'
+import * as save from 'file-saver'
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,17 @@ export class GenerateSVGService {
       }
     }catch(e){
       console.log(e)
+    }
+  }
+  public saveSVG(){
+    if (this.svgElement && this.selectedFile) {
+      let blob = new Blob([this.svgElement.outerHTML], {type: 'image/svg+xml'})
+      if(blob){
+        save.default(blob,this.selectedFile.name);
+        console.log('saved');
+      }
+    } else {
+      console.log('no SVG created yet');
     }
   }
   constructor() { }
