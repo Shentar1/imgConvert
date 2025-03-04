@@ -9,7 +9,7 @@ span{
     display:inline-block;
     padding:5px;
     text-align: center;
-    box-shadow: #111 3px 3px 3px 3px;
+    box-shadow: #111 1px 1px 3px 1px;
     user-select: none;
     min-width: 75px;
 }
