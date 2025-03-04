@@ -1,4 +1,4 @@
-<div id="addFileButton" [style.background-image]="generateSVGService.backgroundImage" [style.background-size]="generateSVGService.backgroundSize + '%'" (click)="input.click()"><input #input id="addFileInput" type="file" (change)="openFilePicker($event)" (openFilePickerEvent)="openFilePicker($event)"/><span id="addFile">Add File</span><span id="fileSize">{{(generateSVGService.totalFileSize).toFixed(2)}}MB/100MB   {{generateSVGService.files.length}}/50 Files</span></div>
+<div id="addFileButton" [style.background-image]="generateSVGService.backgroundImage" [style.background-size]="generateSVGService.backgroundSize + '%'" (click)="input.click()"><input #input id="addFileInput" type="file" (change)="openFilePicker($event)" (openFilePickerEvent)="openFilePicker($event)"/><span id="addFile">Add File</span><span id="fileSize">{{(generateSVGService.totalFileSize).toFixed(2)}}MB  {{generateSVGService.files.length}} Files</span></div>
 <div id="dropArea" (drop)="itemDropped($event)" (dragover)="dragOver($event)" (dragend)="dragOver($event)">
 @for (file of generateSVGService.files; track [$index,file.name,file.source,file.width,file.height]) {
     @if(($index+1)%2===0){

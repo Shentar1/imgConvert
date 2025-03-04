@@ -58,10 +58,6 @@ export class GenerateSVGService {
       this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
       //add file size to the total
       this.totalFileSize += i.size/1000000;
-      //calculate the end points of a gradient as a visual for how 'full' the application is 
-      this.backgroundSize = this.totalFileSize/1000000<this.files.length*100/50?this.files.length*100/50:this.totalFileSize/1000000
-      this.backgroundOpacityEnd = this.totalFileSize/1000000<this.files.length*255/50?Math.round(this.files.length*255/50):Math.round(this.totalFileSize*255/1000000)
-      this.backgroundImage = "linear-gradient(to right, #aaa0, #aaaaaaa"+this.backgroundOpacityEnd.toString(16)+")";
     }
     img.src = imgString;
   }
