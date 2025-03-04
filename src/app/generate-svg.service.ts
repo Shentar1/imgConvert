@@ -17,7 +17,7 @@ export class GenerateSVGService {
   public viewBoxSize = '0 0 0 0';
   public imageSettings:SettingsObject = new SettingsObject();
   public selectedFile?:FileObject;
-  public loadImg:Function = (imgString:string, i:File)=>{
+  public loadImg:Function = (imgString:string, i:File, index:number)=>{
     let img = new Image();
     img.onload=()=> {
       //get the image in the form of a URL
@@ -54,7 +54,7 @@ export class GenerateSVGService {
         img.height = img.height/(img.height/43);
       }
       //add all image details to the files array
-      this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
+      this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width, index))
       //add file size to the total
       this.totalFileSize += i.size/1000000;
     }
@@ -62,10 +62,14 @@ export class GenerateSVGService {
   }
   public removeFile(n:number){
     if(this.files[n]){
-      this.totalFileSize -= this.files[n].size;
+      this.totalFileSize -= this.files[n].size/1000000;
       this.files.splice(n,1);
      }
+     else{
+      console.log('nothing to remove');
+     }
   }
+  //use potrace to create a new SVG from the image file
   public async traceImage(imgString:string,similarity:number){
     try{
       if(imgString && similarity){

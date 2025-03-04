@@ -26,14 +26,14 @@ export class SelectedFilesSidebarComponent {
   public openFilePicker(e:Event){
     let target = e?.target as HTMLInputElement;
     if(target.files){
-      Array.from(target.files).forEach((item)=>{
+      Array.from(target.files).forEach((item, index)=>{
         if(item){
           //use a web-worker to offload processing from the browser
           if (typeof Worker !== 'undefined') {
             // Create a new worker
             let worker = new Worker(new URL('./selected-files-sidebar.worker', import.meta.url));
             worker.onmessage = async (data) => {
-                await this.generateSVGService.loadImg(data.data, item)
+                await this.generateSVGService.loadImg(data.data, item, index)
               }
             worker.postMessage({item});
           } else {
@@ -42,7 +42,7 @@ export class SelectedFilesSidebarComponent {
             const fr = new FileReader();
             fr.onload = (e)=>{
               if(e){
-                this.generateSVGService.loadImg(e.target?.result, item);
+                this.generateSVGService.loadImg(e.target?.result, item, index);
               }
             }
           }
@@ -61,14 +61,14 @@ export class SelectedFilesSidebarComponent {
     //remove default handling of drop events, since we still don't want to open a bunch of tabs
     event.preventDefault();
     if(items){
-      Array.from(items).forEach((item)=>{
+      Array.from(items).forEach((item, index)=>{
         if(item){
           //use a web-worker to offload processing from the browser
           if (typeof Worker !== 'undefined') {
             // Create a new worker
             let worker = new Worker(new URL('./selected-files-sidebar.worker', import.meta.url));
             worker.onmessage = async (data) => {
-              await this.generateSVGService.loadImg(data.data, item);
+              await this.generateSVGService.loadImg(data.data, item, index);
               }
             worker.postMessage({item});
           } else {
@@ -77,7 +77,7 @@ export class SelectedFilesSidebarComponent {
             const fr = new FileReader();
             fr.onload = (e)=>{
               if(e){
-                this.generateSVGService.loadImg(e.target?.result, item);
+                this.generateSVGService.loadImg(e.target?.result, item, index);
               }
             }
           }

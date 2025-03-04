@@ -26,4 +26,11 @@ export class ControlsComponent {
     if(this.generateSVGService.imageSettings)
       this.generateSVGService.imageSettings.resetOptions();
   }
+  protected removeClicked(){
+    if(this.generateSVGService.selectedFile){
+    this.generateSVGService.removeFile(this.generateSVGService.selectedFile?.index);
+    }else{
+      console.log('no file selected');
+    }
+  }
 }

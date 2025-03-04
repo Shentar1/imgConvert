@@ -55,8 +55,14 @@ export class FileObject{
     public set icoWidth(v : number) {
         this._icoWidth = v;
     }
-    
-    public constructor(name:string,size:number,width:number,height:number,source:string,icoHeight:number,icoWidth:number){
+    private _index :number = 0;
+    public get index():number{
+        return this._index;
+    }
+    private set index(n:number){
+        this._index = n;
+    }
+    public constructor(name:string,size:number,width:number,height:number,source:string,icoHeight:number,icoWidth:number, index:number){
         this.name = name;
         this.size = size;
         this.width = width;
@@ -64,5 +70,6 @@ export class FileObject{
         this.source = source;
         this.icoHeight = icoHeight;
         this.icoWidth = icoWidth;
+        this.index = index
     }
 }
