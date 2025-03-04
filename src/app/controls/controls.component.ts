@@ -21,5 +21,9 @@ export class ControlsComponent {
   protected convertClicked(){
     if(this.generateSVGService.selectedFile)
     this.generateSVGService.traceImage(this.generateSVGService.selectedFile.source ,this.generateSVGService.imageSettings.colorSimilarity)
-  } 
+  }
+  protected resetClicked(){
+    if(this.generateSVGService.imageSettings)
+      this.generateSVGService.imageSettings = new SettingsObject();
+  }
 }

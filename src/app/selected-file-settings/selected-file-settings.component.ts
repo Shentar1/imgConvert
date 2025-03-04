@@ -50,10 +50,6 @@ export class SelectedFileSettingsComponent {
     this.imageSettings.colorSimilarityChanged(s);
     this.generateSVGService.imageSettings = this.imageSettings;
   }
-  public startingColorChanged(s:string){
-    this.imageSettings.startingColorChanged(s)
-    this.generateSVGService.imageSettings = this.imageSettings;
-  }
   private async initPotrace(){
     await init();
   }
