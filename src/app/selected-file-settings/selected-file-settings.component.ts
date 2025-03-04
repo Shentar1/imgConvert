@@ -31,7 +31,7 @@ export class SelectedFileSettingsComponent {
   /**
    * class properties - public get,private set
    */
-  private generateSVGService:GenerateSVGService;
+  protected generateSVGService:GenerateSVGService;
   private _settingsArray:Array<SettingsObject>;
   public get settingsArray(){
     return this._settingsArray;
@@ -48,20 +48,13 @@ export class SelectedFileSettingsComponent {
   }
   public colorSimilarityChanged(s:string){  
     this.imageSettings.colorSimilarityChanged(s);
-    if(this.selectedFile){
-      this.recolorImage(this.selectedFile.source, this.imageSettings.colorSimilarity, this.imageSettings.backgroundColor);
-    }
+    this.generateSVGService.imageSettings = this.imageSettings;
   }
   public startingColorChanged(s:string){
     this.imageSettings.startingColorChanged(s)
-    if(this.selectedFile){
-      this.recolorImage(this.selectedFile?.source, this.imageSettings.colorSimilarity, this.imageSettings.backgroundColor);
-    }
+    this.generateSVGService.imageSettings = this.imageSettings;
   }
   private async initPotrace(){
     await init();
-  }
-  private async recolorImage(imgString:string,similarity:number,backgroundColor:string){
-    this.generateSVGService.traceImage(this.imageSettings,imgString,similarity,backgroundColor)
   }
 }

@@ -1,7 +1,7 @@
-@if(selectedFile){
-    <div>Name: {{this.selectedFile.name}}</div>
-    <div>Width: {{this.selectedFile.width}} <span> Height: {{this.selectedFile.height}}</span></div>
-    <div>Size {{(this.selectedFile.size/1000000).toFixed(2)}}MB</div>
+@if(generateSVGService.selectedFile){
+    <div>Name: {{generateSVGService.selectedFile.name}}</div>
+    <div>Width: {{generateSVGService.selectedFile.width}} <span> Height: {{generateSVGService.selectedFile.height}}</span></div>
+    <div>Size {{(generateSVGService.selectedFile.size/1000000).toFixed(2)}}MB</div>
     <div>Color Precision: <input type="range" max="25" min="1" [value]="this.imageSettings.colorSimilarity" #colorSimilarity (change)="colorSimilarityChanged(colorSimilarity.value)"/>{{this.imageSettings.colorSimilarity}}</div>
     <div>Output Format:
         <select>

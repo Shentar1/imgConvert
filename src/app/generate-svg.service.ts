@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FileObject } from './Classes/FileObject';
 import { SettingsObject } from './Classes/SettingsObject';
-import { potrace, init} from 'esm-potrace-wasm'
-import { FormArrayName } from '@angular/forms';
+import { potrace} from 'esm-potrace-wasm'
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +12,13 @@ export class GenerateSVGService {
   public totalFileSize:number = 0;
   public backgroundImage:string = '';
   public backgroundSize:number = 0;
-  private backgroundOpacityEnd:number = 0;
   public svgElement:SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg','svg');
   public svgElementLayers?:HTMLCollection;
   public viewBoxSize = '0 0 0 0';
+  public imageSettings:SettingsObject = new SettingsObject();
+  public selectedFile?:FileObject;
   public loadImg:Function = (imgString:string, i:File)=>{
     let img = new Image();
-    let loadedImg:Object;
     img.onload=()=> {
       //get the image in the form of a URL
       var source = imgString as string;
@@ -65,20 +64,11 @@ export class GenerateSVGService {
     if(this.files[n]){
       this.totalFileSize -= this.files[n].size;
       this.files.splice(n,1);
-      this.backgroundSize = this.totalFileSize/1000000<this.files.length*100/50?this.files.length*100/50:this.totalFileSize/1000000
-      this.backgroundOpacityEnd = this.totalFileSize/1000000<this.files.length*255/50?Math.round(this.files.length*255/50):Math.round(this.totalFileSize*255/1000000)
-      this.backgroundImage = "linear-gradient(to right, #aaa0, #aaaaaaa"+this.backgroundOpacityEnd.toString(16)+")"
-    }
+     }
   }
-  public async traceImage(imageSettings:SettingsObject,imgString:string,similarity:number,backgroundColor:string){
-    let startingRed = imageSettings.backgroundColor.substring(1,3);
-    let startingBlue = imageSettings.backgroundColor.substring(3,5);
-    let startingGreen = imageSettings.backgroundColor.substring(5,7);
+  public async traceImage(imgString:string,similarity:number){
     try{
-      let blue = parseInt("0x"+startingBlue);
-      let red = parseInt("0x"+startingRed);
-      let green = parseInt("0x"+startingGreen);
-      if(imgString && similarity && backgroundColor){
+      if(imgString && similarity){
         const img = new Image();
         img.src = imgString;
         this.viewBoxSize = "0 0 " + img.width + " " + img.height;

@@ -19,7 +19,7 @@ export class SelectedFilesSidebarComponent {
   //Process clicked image and send it to imgPreview and selectedFileSettings components
   public imageClicked(n:number){
     if(this.generateSVGService.files[n]){
-      this.imageClickedEventEmitter.emit(this.generateSVGService.files[n])
+      this.generateSVGService.selectedFile = this.generateSVGService.files[n]
     }
   }
   //Allows choosing of files from a file picking window
