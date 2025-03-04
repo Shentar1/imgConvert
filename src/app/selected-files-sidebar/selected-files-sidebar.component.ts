@@ -53,7 +53,6 @@ export class SelectedFilesSidebarComponent {
   //remove default handling of drag events, since we don't want to open a bunch of tabs
   dragOver(event:DragEvent){
     event.preventDefault();
-    event.stopPropagation();
   }
   //handle adding the file information to the array of files
   //this will let us  retrieve the files as needed instead of trying to hold them all in memory and running out (possible)
@@ -61,7 +60,6 @@ export class SelectedFilesSidebarComponent {
     const items = event.dataTransfer?.files
     //remove default handling of drop events, since we still don't want to open a bunch of tabs
     event.preventDefault();
-    event.stopPropagation();
     if(items){
       Array.from(items).forEach((item)=>{
         if(item){

@@ -21,53 +21,47 @@ export class GenerateSVGService {
     let img = new Image();
     let loadedImg:Object;
     img.onload=()=> {
-      if(this.files.length < 50 && i.size + this.totalFileSize <= 100000000){
-        //get the image in the form of a URL
-        var source = imgString as string;
-        // compress image data to a maximum of 500x500 pixels, maintaining aspect ratio
-        const maxDimension = 1000;
-        let itemHeight = img.height;
-        let itemWidth = img.width;
-        if (itemHeight > maxDimension || itemWidth > maxDimension) {
-          if (itemHeight > itemWidth) {
-            itemWidth = (itemWidth / itemHeight) * maxDimension;
-            itemHeight = maxDimension;
-          } else {
-            itemHeight = (itemHeight / itemWidth) * maxDimension;
-            itemWidth = maxDimension;
-          }
+      //get the image in the form of a URL
+      var source = imgString as string;
+      // compress image data to a maximum of 500x500 pixels, maintaining aspect ratio
+      const maxDimension = 1000;
+      let itemHeight = img.height;
+      let itemWidth = img.width;
+      if (itemHeight > maxDimension || itemWidth > maxDimension) {
+        if (itemHeight > itemWidth) {
+          itemWidth = (itemWidth / itemHeight) * maxDimension;
+          itemHeight = maxDimension;
+        } else {
+          itemHeight = (itemHeight / itemWidth) * maxDimension;
+          itemWidth = maxDimension;
         }
-        // Create a canvas to resize the image
-        const canvas = document.createElement('canvas');
-        canvas.width = itemWidth;
-        canvas.height = itemHeight;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, itemWidth, itemHeight);
-          // Get the resized image data
-          var source = canvas.toDataURL('image/jpeg', 0.7); // Adjust the quality as needed
-        }
-        //resize image for thumbnail display
-        if(img.height < img.width){
-          img.height = img.height/(img.width/50);
-          img.width = img.width/(img.width/50);
-        }else{
-          img.width = img.width/(img.height/43);
-          img.height = img.height/(img.height/43);
-        }
-        //add all image details to the files array
-        this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
-        //add file size to the total
-        this.totalFileSize += i.size/1000000;
-        //calculate the end points of a gradient as a visual for how 'full' the application is 
-        this.backgroundSize = this.totalFileSize/1000000<this.files.length*100/50?this.files.length*100/50:this.totalFileSize/1000000
-        this.backgroundOpacityEnd = this.totalFileSize/1000000<this.files.length*255/50?Math.round(this.files.length*255/50):Math.round(this.totalFileSize*255/1000000)
-        this.backgroundImage = "linear-gradient(to right, #aaa0, #aaaaaaa"+this.backgroundOpacityEnd.toString(16)+")"
-      }else if (this.files.length >= 50){
-        console.log('Attempted to load more than 50 files. Please remove some, or upload less, and try again.');
-      }else{
-        console.log('Attempted to load files that would total over 100MB. Please remove some, resize the files, or upload fewer, and try again.');
       }
+      // Create a canvas to resize the image
+      const canvas = document.createElement('canvas');
+      canvas.width = itemWidth;
+      canvas.height = itemHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, itemWidth, itemHeight);
+        // Get the resized image data
+        var source = canvas.toDataURL('image/jpeg', 0.7); // Adjust the quality as needed
+      }
+      //resize image for thumbnail display
+      if(img.height < img.width){
+        img.height = img.height/(img.width/50);
+        img.width = img.width/(img.width/50);
+      }else{
+        img.width = img.width/(img.height/43);
+        img.height = img.height/(img.height/43);
+      }
+      //add all image details to the files array
+      this.files.push(new FileObject(i.name,i.size,itemWidth,itemHeight, source, img.height, img.width))
+      //add file size to the total
+      this.totalFileSize += i.size/1000000;
+      //calculate the end points of a gradient as a visual for how 'full' the application is 
+      this.backgroundSize = this.totalFileSize/1000000<this.files.length*100/50?this.files.length*100/50:this.totalFileSize/1000000
+      this.backgroundOpacityEnd = this.totalFileSize/1000000<this.files.length*255/50?Math.round(this.files.length*255/50):Math.round(this.totalFileSize*255/1000000)
+      this.backgroundImage = "linear-gradient(to right, #aaa0, #aaaaaaa"+this.backgroundOpacityEnd.toString(16)+")";
     }
     img.src = imgString;
   }

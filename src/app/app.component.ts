@@ -19,7 +19,6 @@ export class AppComponent {
   public recoloredImage?:SVGSVGElement;
   public noDragFunctions(e:Event){
     e.preventDefault();
-    e.stopPropagation();
   }
   public imageClicked(e:FileObject){
     this.clickedImage = e;

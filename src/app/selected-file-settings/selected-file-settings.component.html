@@ -3,8 +3,9 @@
     <div>Width: {{this.selectedFile.width}} <span> Height: {{this.selectedFile.height}}</span></div>
     <div>Size {{(this.selectedFile.size/1000000).toFixed(2)}}MB</div>
     <div>Color Precision: <input type="range" max="25" min="1" [value]="this.imageSettings.colorSimilarity" #colorSimilarity (change)="colorSimilarityChanged(colorSimilarity.value)"/>{{this.imageSettings.colorSimilarity}}</div>
-    <div>First Color To Seperate: <input type="color" [value]="this.imageSettings.backgroundColor" #startingColor (change)="startingColorChanged(startingColor.value)"/>{{this.imageSettings.backgroundColor}}</div>
-    <div>Output Format: <select>
-        <option>SVG</option>
-    </select></div>
+    <div>Output Format:
+        <select>
+            <option>SVG</option>
+        </select>
+    </div>
 }
