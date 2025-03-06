@@ -1,21 +1,21 @@
-@for(layer of generateSVGService.svgElement.children; track [$index, layer]){
+@for(layer of generateSVGService.svgElement.querySelectorAll('g'); track [$index, layer]){
     <div #layerDiv>
         <svg #svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50" height="50" [attr.viewBox]="this.generateSVGService.viewBoxSize">
             {{appendLayer(layer, svg)}}
         </svg>
-        <span (click)="moveUpClicked($event, layerDiv)">
+        <span class = 'moveUp' (click)="moveUpClicked($event, layerDiv)">
             Move up
         </span>
-        <span (click)="moveDownClicked($event, layerDiv)">
+        <span class = 'moveDown' (click)="moveDownClicked($event, layerDiv)">
             Move Down
         </span>
-        <span (click)="mergeUpClicked($event, layerDiv)">
+        <span class = 'mergeUp' (click)="mergeUpClicked($event, layerDiv)">
             Merge Up
         </span>
-        <span (click)="mergeDownClicked($event, layerDiv)">
+        <span class = 'mergeDown' (click)="mergeDownClicked($event, layerDiv)">
             Merge Down
         </span>
-        <span (click)="deleteClicked($event, layerDiv)">
+        <span class = 'delete' (click)="deleteClicked($event, layerDiv)">
             Delete
         </span>
     </div>

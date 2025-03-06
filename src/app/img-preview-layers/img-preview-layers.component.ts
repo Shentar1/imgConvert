@@ -13,52 +13,72 @@ export class ImgPreviewLayersComponent {
     p.innerHTML = e.outerHTML;
   }
   protected moveUpClicked(e:Event, sender:Element){
-    if(sender.parentElement){
-      let siblings = Array.from(sender.parentElement.getElementsByTagName('div'));
-      let parent = sender.parentElement;
-      console.log(siblings);
-      for(let i = 1; i<siblings.length; i++){
-        if(siblings[i]===sender){
-          let currentCopy = sender;
-          let previousElementCopy = siblings[i-1];
-          siblings[i] = previousElementCopy;
-          siblings[i-1] = currentCopy as HTMLDivElement;
-          siblings.forEach(element => {
-            parent.appendChild(element)
-          });
+    let parent = document.querySelector('imgPreviewLayers');
+    let g = sender.querySelector('g');
+    if(parent && g){
+      let s = parent.querySelectorAll('div');
+      if(s){
+        let siblings = Array.from(s)
+        let index = siblings.indexOf(sender as HTMLDivElement);
+        if(this.generateSVGService.svgElement.children[index] && this.generateSVGService.svgElement.children[index -1]){
+          this.generateSVGService.svgElement.insertBefore(this.generateSVGService.svgElement.children[index], this.generateSVGService.svgElement.children[index -1])
         }
       }
     }
   }
   protected moveDownClicked(e:Event, sender:Element){
-    if(sender.parentElement){
-      let siblings = Array.from(sender.parentElement.getElementsByTagName('div'));
-      let parent = sender.parentElement;
-      console.log(siblings);
-      for(let i = 0; i<siblings.length-1; i++){
-        if(siblings[i]===sender){
-          let currentCopy = sender;
-          let nextElementCopy = siblings[i+1];
-          siblings[i] = nextElementCopy;
-          siblings[i+1] = currentCopy as HTMLDivElement;
-          siblings.forEach(element => {
-            parent.appendChild(element)
-          });
-          i=Number.MAX_SAFE_INTEGER;
+    let parent = document.querySelector('imgPreviewLayers');
+    let g = sender.querySelector('g');
+    if(parent && g){
+      let s = parent.querySelectorAll('div');
+      if(s){
+        let siblings = Array.from(s)
+        let index = siblings.indexOf(sender as HTMLDivElement);
+        if(this.generateSVGService.svgElement.children[index] && this.generateSVGService.svgElement.children[index + 1]){
+          this.generateSVGService.svgElement.insertBefore(this.generateSVGService.svgElement.children[index+1], this.generateSVGService.svgElement.children[index])
         }
       }
     }
   }
   protected mergeUpClicked(e:Event, sender:Element){
-
+    let parent = document.querySelector('imgPreviewLayers')
+    let paths = sender.querySelectorAll('path')
+    if(parent){
+      let siblings = Array.from(parent.querySelectorAll('div'));
+      if(siblings){
+        let index = siblings.indexOf(sender as HTMLDivElement);
+        if(this.generateSVGService.svgElement.children[index-1]){
+          paths.forEach(path => {
+            this.generateSVGService.svgElement.children[index-  1].innerHTML += path.outerHTML;
+          })
+          this.generateSVGService.svgElement.removeChild(this.generateSVGService.svgElement.children[index])
+        }
+      }
+    }
   }
   protected mergeDownClicked(e:Event, sender:Element){
-
+    let parent = document.querySelector('imgPreviewLayers')
+    let paths = sender.querySelectorAll('path')
+    if(parent){
+      let siblings = Array.from(parent.querySelectorAll('div'));
+      if(siblings){
+        let index = siblings.indexOf(sender as HTMLDivElement);
+        if(this.generateSVGService.svgElement.children[index+1]){
+          paths.forEach(path => {
+            this.generateSVGService.svgElement.children[index+1].innerHTML += path.outerHTML;
+          })
+          this.generateSVGService.svgElement.removeChild(this.generateSVGService.svgElement.children[index])
+        }
+      }
+    }
   }
   protected deleteClicked(e:Event, sender:Element){
-    
-  }
-  private refreshSVG(layers:HTMLCollection){
-
+    let siblings = document.querySelector('imgPreviewLayers')?.querySelectorAll('div')
+    if(siblings){
+      let index = Array.from(siblings).indexOf(sender as HTMLDivElement);
+      if(this.generateSVGService.svgElement.children[index]){
+        this.generateSVGService.svgElement.removeChild(this.generateSVGService.svgElement.children[index])
+      }
+    }
   }
 }
