@@ -3,18 +3,8 @@ main{
     overflow: auto;
     height: 100vh;
 }
-toolbar{
-    display: flex;
-    position: absolute;
-    width: 100vw;
-    height: 30px;
-    background-color: #114;
-    color: #ccf;
-    text-align: center;
-}
 #selectedFilesSidebar{
     width:20vw;
-    margin-top: 30px;
     flex-grow: 1;
     flex-shrink: 1;
     background-color: #ccf;
@@ -25,7 +15,6 @@ toolbar{
 #selectedFileSettings{
     display: flex;
     flex-direction: column;
-    margin-top:30px;
     width: 25vw;
 }
 selectedFileSettings{
@@ -38,7 +27,6 @@ selectedFileSettings{
 #imgPreview{
     display: flex;
     flex-direction: column;
-    margin-top:30px;
     width:55vw;
     text-align: center;
 }
