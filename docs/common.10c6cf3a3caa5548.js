@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkimgConvert=self.webpackChunkimgConvert||[]).push([[76],{671:()=>{addEventListener("message",({data:a})=>{const e=a.item,i=new FileReader;i.onload=t=>{postMessage(t.target?.result)},["image/bmp","image/img","image/png","image/jpeg","image/webp","image/vnd.microsoft.com","image/svg+xml"].includes(e.type)&&i.readAsDataURL(e)})}}]);
