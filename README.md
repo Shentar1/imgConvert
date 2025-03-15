@@ -18,4 +18,4 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 # Note:
 
-### intended for conversion to SVG file format for use with cricut hardware and similar use cases. Image quality is not preserved during conversion.
+###### intended for conversion to SVG file format for use with Cricut hardware and similar use cases. Image quality is not preserved during conversion.
