@@ -2,58 +2,20 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
 
-## Development server
+# Usage
 
-To start a local development server, run:
+1. Drag an image file or image files onto the farthest left division on the page. This will list all photos uploaded.
 
-```bash
-ng serve
-```
+2. Click the image you would like to convert.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+3. Make changes to conversion options in the second division from the left.
 
-## Code scaffolding
+4. Press Convert and view the image preview.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+5. Merge colors together if necessary using the layer previews on the bottom right and their controls
 
-```bash
-ng generate component component-name
-```
+6. When satisfied with the outcome, press save.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+# Note:
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### intended for conversion to SVG file format for use with cricut hardware and similar use cases. Image quality is not preserved during conversion.
